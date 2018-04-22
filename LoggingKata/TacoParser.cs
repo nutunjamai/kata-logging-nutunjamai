@@ -21,6 +21,24 @@ namespace LoggingKata
             var lon = double.Parse(cells[0]);
             var lat = double.Parse(cells[1]);
             var name = cells[2];
+            try
+            {
+                if (lat > Point.MaxLat || lat < -Point.MaxLat) { logger.LogError("Latitude out of range"); return null; }
+                if (lon > Point.MaxLon || lon < -Point.MaxLon) { logger.LogError("Longitude out of range"); return null; }
+            }
+            catch (Exception e)
+            {
+                logger.LogError("Something wrong with parsing process");
+                Console.WriteLine(e);
+                return null;
+            }
+
+            return new TacoBell
+            {
+                Location = new Point {Longitude = lon, Latitude = lat}, 
+                Name = name
+            };
+            
         }
     }
 }
