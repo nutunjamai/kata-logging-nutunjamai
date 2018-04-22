@@ -1,4 +1,6 @@
-﻿namespace LoggingKata
+﻿using System;
+
+namespace LoggingKata
 {
     /// <summary>
     /// Parses a POI file to locate all the TacoBells
@@ -11,8 +13,14 @@
         {
             logger.LogInfo("Begin parsing");
 
-            //DO not fail if one record parsing fails, return null
-            return null; //TODO Implement
+            if (string.IsNullOrEmpty(line)) { logger.LogError("This line is empty"); return null; }
+
+            var cells = line.Split(',');
+            if (cells.Length < 3) { logger.LogError("Invalid string length"); return null; }
+
+            var lon = double.Parse(cells[0]);
+            var lat = double.Parse(cells[1]);
+            var name = cells[2];
         }
     }
 }
