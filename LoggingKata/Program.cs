@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.IO;
-using System.Device.Location;
-using Geolocation;
+using GeoCoordinatePortable;
 
 namespace LoggingKata
 {
@@ -29,7 +28,7 @@ namespace LoggingKata
             double distance = 0;
             foreach (var LocA in locations)
             {
-                var origin = new Coordinate
+                GeoCoordinate origin = new GeoCoordinate
                 {
                     Latitude = LocA.Location.Latitude,
                     Longitude = LocA.Location.Longitude
@@ -37,13 +36,13 @@ namespace LoggingKata
 
                 foreach (var LocB in locations)
                 {
-                    var destination = new Coordinate
+                    var destination = new GeoCoordinate
                     {
                         Latitude = LocB.Location.Latitude,
                         Longitude = LocB.Location.Longitude
                     };
 
-                    var newDistance = GeoCalculator.GetDistance(origin, destination);
+                    var newDistance = origin.GetDistanceTo(destination);
                     if (newDistance > distance)
                     {
                         A = LocA;
