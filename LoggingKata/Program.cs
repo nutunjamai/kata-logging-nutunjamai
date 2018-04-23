@@ -8,7 +8,7 @@ namespace LoggingKata
 {
     class Program
     {
-        //Why do you think we use ILog?
+        
         static readonly ILog logger = new TacoLogger();
         const string csvPath = "TacoBell-US-AL.csv";
 
@@ -29,7 +29,7 @@ namespace LoggingKata
             double distance = 0;
             foreach (var LocA in locations)
             {
-                var origin = new GeoCoordinate
+                var origin = new Coordinate
                 {
                     Latitude = LocA.Location.Latitude,
                     Longitude = LocA.Location.Longitude
@@ -37,13 +37,13 @@ namespace LoggingKata
 
                 foreach (var LocB in locations)
                 {
-                    var destination = new GeoCoordinate
+                    var destination = new Coordinate
                     {
                         Latitude = LocB.Location.Latitude,
                         Longitude = LocB.Location.Longitude
                     };
 
-                    var newDistance = distance.GetDistance(origin, destination);
+                    var newDistance = GeoCalculator.GetDistance(origin, destination);
                     if (newDistance > distance)
                     {
                         A = LocA;
