@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.IO;
+using GeoCoordinatePortable;
 
 namespace LoggingKata
 {
     class Program
     {
-        //Why do you think we use ILog?
+        
         static readonly ILog logger = new TacoLogger();
         const string csvPath = "TacoBell-US-AL.csv";
 
@@ -22,8 +23,40 @@ namespace LoggingKata
 
             var locations = lines.Select(parser.Parse);
 
-            // TODO:  Find the two TacoBells in Alabama that are the furthurest from one another.
-            // HINT:  You'll need two nested forloops
+            ITrackable A = null;
+            ITrackable B = null;
+            double distance = 0;
+            foreach (var locA in locations)
+            {
+                var origin = new GeoCoordinate
+                {
+                    Latitude = locA.Location.Latitude,
+                    Longitude = locA.Location.Longitude
+                };
+
+                foreach (var locB in locations)
+                {
+                    var destination = new GeoCoordinate
+                    {
+                        Latitude = locB.Location.Latitude,
+                        Longitude = locB.Location.Longitude
+                    };
+
+                    var newDistance = origin.GetDistanceTo(destination);
+                    if (newDistance > distance)
+                    {
+                        A = locA;
+                        B = locB;
+                        distance = newDistance;
+                    }
+                }
+            }
+
+            Console.WriteLine($"The two TacoBells that are furtherest apart are: {A.Name} and {B.Name}");
+            Console.WriteLine($"These two locations are {distance} apart");
+            Console.ReadLine();
         }
     }
 }
+
+            
