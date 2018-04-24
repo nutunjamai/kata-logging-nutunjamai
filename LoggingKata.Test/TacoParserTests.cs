@@ -5,21 +5,15 @@ namespace LoggingKata.Test
 {
     public class TacoParserTests
     {
-        /*[Fact]
-        public void ShouldDoSomething()
-        {
-            // TODO: Complete Something, if anything
-        }*/
-
-        [Theory]
+       [Theory]
         [InlineData("-86.889051, 33.556383, Taco Bell Birmingham")]
         public void ShouldParse(string line)
         {
-            // Arrange
+            
             var parser = new TacoParser();
-            //Act
+            
             var actual = parser.Parse(line);
-            //Assert
+            
             Assert.NotNull(actual.Location);
             Assert.NotNull(actual.Name);
         }
@@ -33,13 +27,12 @@ namespace LoggingKata.Test
         [InlineData("170.02, 100.20, Location")] // Latitude out of range.
         public void ShouldFailParse(string line)
         {
-            //Arrange
-            var parser = new TacoParser();
-            ITrackable expected = null;
-            //Act
-            var actual = parser.Parse(line);
-            //Assert
-            Assert.Equal(actual, expected);
+           var parser = new TacoParser();
+           ITrackable expected = null;
+           
+           var actual = parser.Parse(line);
+          
+           Assert.Null(actual);
         }
     }
 }

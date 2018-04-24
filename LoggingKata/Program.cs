@@ -26,27 +26,27 @@ namespace LoggingKata
             ITrackable A = null;
             ITrackable B = null;
             double distance = 0;
-            foreach (var LocA in locations)
+            foreach (var locA in locations)
             {
-                GeoCoordinate origin = new GeoCoordinate
+                var origin = new GeoCoordinate
                 {
-                    Latitude = LocA.Location.Latitude,
-                    Longitude = LocA.Location.Longitude
+                    Latitude = locA.Location.Latitude,
+                    Longitude = locA.Location.Longitude
                 };
 
-                foreach (var LocB in locations)
+                foreach (var locB in locations)
                 {
                     var destination = new GeoCoordinate
                     {
-                        Latitude = LocB.Location.Latitude,
-                        Longitude = LocB.Location.Longitude
+                        Latitude = locB.Location.Latitude,
+                        Longitude = locB.Location.Longitude
                     };
 
                     var newDistance = origin.GetDistanceTo(destination);
                     if (newDistance > distance)
                     {
-                        A = LocA;
-                        B = LocB;
+                        A = locA;
+                        B = locB;
                         distance = newDistance;
                     }
                 }
@@ -55,8 +55,8 @@ namespace LoggingKata
             Console.WriteLine($"The two TacoBells that are furtherest apart are: {A.Name} and {B.Name}");
             Console.WriteLine($"These two locations are {distance} apart");
             Console.ReadLine();
-            }
         }
     }
+}
 
             

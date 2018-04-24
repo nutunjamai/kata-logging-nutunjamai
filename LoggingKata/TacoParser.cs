@@ -13,10 +13,18 @@ namespace LoggingKata
         {
             logger.LogInfo("Now Parsing");
 
-            if (string.IsNullOrEmpty(line)) { logger.LogFatal("This line is empty"); return null; }
+            if (string.IsNullOrEmpty(line))
+            {
+                logger.LogFatal("This line is empty");
+                return null;
+            }
 
             var cells = line.Split(',');
-            if (cells.Length < 3) { logger.LogError("Invalid string length"); return null; }
+            if (cells.Length < 2)
+            {
+                logger.LogError("Invalid string length");
+                return null;
+            }
 
             var lon = double.Parse(cells[0]);
             var lat = double.Parse(cells[1]);

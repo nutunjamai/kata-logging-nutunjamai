@@ -8,5 +8,5 @@ namespace LoggingKata
         public static readonly double MaxLat = 85.05112878;
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        }
+    }
 }
